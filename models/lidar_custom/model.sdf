@@ -1,0 +1,64 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="lidar_custom">
+    <link name="lidar_link">
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>0.02</mass>
+        <inertia>
+          <ixx>0.000004</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.000004</iyy>
+          <iyz>0</iyz>
+          <izz>0.000002</izz>
+        </inertia>
+      </inertial>
+      <collision name="collision_base">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.03 0.02 0.043</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://LW20/meshes/LW20.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <sensor name='lidar_sensor' type='gpu_lidar'>"
+        <pose relative_to="lidar_link">0 0 0 0 0 3.14</pose>
+        <update_rate>50</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>1</samples>
+              <resolution>1</resolution>
+              <min_angle>0</min_angle>
+              <max_angle>0</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.1</min>
+            <max>100.0</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+        <always_on>1</always_on>
+        <visualize>true</visualize>
+      </sensor>
+
+    </link>
+  </model>
+</sdf>
