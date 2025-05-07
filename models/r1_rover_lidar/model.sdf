@@ -4,20 +4,42 @@
     <include merge='true'>
       <uri>r1_rover</uri>
     </include>
-    <include merge='true'>
+
+    <include>
       <uri>model://lidar_custom</uri>
+      <name>lidar_0</name>
       <pose relative_to="base_link">0.2 -0.09 0 0 0 3.14</pose>
     </include>
-    <joint name="lidar_model_joint" type="fixed">
+
+    <include>
+      <uri>model://lidar_custom</uri>
+      <name>lidar_1</name>
+      <pose relative_to="base_link">0.2 0.09 0 0 0 3.14</pose>
+    </include>
+
+    <joint name="lidar_model_joint_0" type="fixed">
       <parent>base_link</parent>
-      <child>lidar_link</child>
+      <child>lidar_0::lidar_link</child>
       <pose relative_to="base_link">0 0 0 0 0 0</pose>
     </joint>
-    <joint name="lidar_sensor_joint" type="fixed">
+
+    <joint name="lidar_model_joint_1" type="fixed">
       <parent>base_link</parent>
-      <child>lidar_sensor_link</child>
+      <child>lidar_1::lidar_link</child>
+      <pose relative_to="base_link">0 0 0 0 0 0</pose>
     </joint>
-    <link name="lidar_sensor_link">
+
+    <joint name="lidar_sensor_joint_0" type="fixed">
+      <parent>base_link</parent>
+      <child>lidar_sensor_link_0</child>
+    </joint>
+
+    <joint name="lidar_sensor_joint_1" type="fixed">
+      <parent>base_link</parent>
+      <child>lidar_sensor_link_1</child>
+    </joint>
+
+    <link name="lidar_sensor_link_0">
       <pose relative_to="base_link">0.2 -0.09 0 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
@@ -30,7 +52,7 @@
           <iyz>0.0</iyz>
         </inertia>
       </inertial>
-      <sensor name='lidar' type='gpu_lidar'>"
+      <sensor name='lidar_0' type='gpu_lidar'>"
         <pose>0 0 0 0 0 0</pose>
         <update_rate>50</update_rate>
         <ray>
@@ -58,5 +80,48 @@
         <visualize>true</visualize>
       </sensor>
     </link>
+
+    <link name="lidar_sensor_link_1">
+      <pose relative_to="base_link">0.2 0.09 0 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>0.00001</ixx>
+          <iyy>0.00001</iyy>
+          <izz>0.00001</izz>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+      <sensor name='lidar_1' type='gpu_lidar'>"
+        <pose>0 0 0 0 0 0</pose>
+        <update_rate>50</update_rate>
+        <ray>
+            <scan>
+                <horizontal>
+                    <samples>1</samples>
+                    <resolution>1</resolution>
+                    <min_angle>0</min_angle>
+                    <max_angle>0</max_angle>
+                </horizontal>
+                <vertical>
+                    <samples>1</samples>
+                    <resolution>1</resolution>
+                    <min_angle>0</min_angle>
+                    <max_angle>0</max_angle>
+                </vertical>
+            </scan>
+            <range>
+                <min>0.1</min>
+                <max>100.0</max>
+                <resolution>0.01</resolution>
+            </range>
+        </ray>
+        <always_on>1</always_on>
+        <visualize>true</visualize>
+      </sensor>
+    </link>
+
   </model>
 </sdf>
